@@ -186,6 +186,16 @@ describe(Support.getTestDialectTeaser('Model'), () => {
           });
         });
 
+        it('should be able to exclude indirectly', function() {
+          return this.User.create({}).then(() => {
+            return this.User.findByPk(1, {
+              attributes: []
+            });
+          }).then(user => {
+            expect(Object.keys(user)).to.have.length(0);
+          });
+        });
+
         it('should be able to include model with virtual attributes', function() {
           return this.User.create({}).then(user => {
             return user.createTask();
@@ -209,10 +219,7 @@ describe(Support.getTestDialectTeaser('Model'), () => {
             virtualDependency2: 'Bar'
           }).then(() => {
             return this.User.findByPk(1, {
-              include: [{
-                model: this.User,
-                attributes: ['virtualWithDependencies']
-              }]
+              attributes: ['virtualWithDependencies']
             });
           }).then(user => {
             expect(user.virtualDependency1).to.equal('Foo');
