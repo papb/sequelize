@@ -33,6 +33,17 @@ describe(Support.getTestDialectTeaser('Model'), () => {
             virtualWithDefault: {
               type: Sequelize.VIRTUAL,
               defaultValue: 'cake'
+            },
+            virtualDependency1: Sequelize.STRING,
+            virtualDependency2: Sequelize.STRING,
+            virtualWithDependencies: {
+              type: Sequelize.VIRTUAL(Sequelize.STRING, ['virtualDependency1', 'virtualDependency2']),
+              get() {
+                const vd1 = this.getDataValue('virtualDependency1');
+                const vd2 = this.getDataValue('virtualDependency2');
+                if (!vd1 || !vd2) return null;
+                return vd1 + vd2;
+              }
             }
           }, { timestamps: false });
 
@@ -191,6 +202,45 @@ describe(Support.getTestDialectTeaser('Model'), () => {
             expect(user.field2).to.equal(42);
           });
         });
+
+        it('should bring virtual dependencies together', function() {
+          return this.User.create({
+            virtualDependency1: 'Foo',
+            virtualDependency2: 'Bar'
+          }).then(() => {
+            return this.User.findByPk(1, {
+              include: [{
+                model: this.User,
+                attributes: ['virtualWithDependencies']
+              }]
+            });
+          }).then(user => {
+            expect(user.virtualDependency1).to.equal('Foo');
+            expect(user.virtualDependency2).to.equal('Bar');
+            expect(user.virtualWithDependencies).to.equal('FooBar');
+          });
+        });
+
+        it('should bring virtual dependencies together when included', function() {
+          return this.User.create({
+            virtualDependency1: 'Foo',
+            virtualDependency2: 'Bar'
+          }).then(user => {
+            return user.createTask();
+          }).then(() => {
+            return this.Task.findByPk(1, {
+              include: [{
+                model: this.User,
+                attributes: ['virtualWithDependencies']
+              }]
+            });
+          }).then(task => {
+            expect(task.user.virtualDependency1).to.equal('Foo');
+            expect(task.user.virtualDependency2).to.equal('Bar');
+            expect(task.user.virtualWithDependencies).to.equal('FooBar');
+          });
+        });
+
       });
     });
   });
