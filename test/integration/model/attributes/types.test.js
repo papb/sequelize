@@ -69,12 +69,19 @@ describe(Support.getTestDialectTeaser('Model'), () => {
             field2: 'field2_value'
           });
 
-          expect(user.get()).to.deep.equal({ storage: 'field1_value', field1: 'field1_value', virtualWithDefault: 'cake', field2: 42, id: null });
+          expect(user.get()).to.deep.equal({
+            storage: 'field1_value',
+            field1: 'field1_value',
+            virtualWithDefault: 'cake',
+            field2: 42,
+            id: null,
+            virtualWithDependencies: null
+          });
         });
 
         it('should be ignored in table creation', function() {
           return this.sequelize.getQueryInterface().describeTable(this.User.tableName).then(fields => {
-            expect(Object.keys(fields).length).to.equal(2);
+            expect(Object.keys(fields).length).to.equal(4);
           });
         });
 
@@ -189,10 +196,10 @@ describe(Support.getTestDialectTeaser('Model'), () => {
         it('should be able to exclude indirectly', function() {
           return this.User.create({}).then(() => {
             return this.User.findByPk(1, {
-              attributes: []
+              attributes: ['storage']
             });
           }).then(user => {
-            expect(Object.keys(user)).to.have.length(0);
+            expect(Object.keys(user)).to.have.length(1);
           });
         });
 
