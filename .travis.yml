@@ -3,13 +3,6 @@ dist: trusty
 
 language: node_js
 
-branches:
-  only:
-    - master
-    - /^greenkeeper/.*$/
-  except:
-    - /^v\d+\.\d+\.\d+$/
-
 cache: npm
 
 install:
@@ -40,12 +33,6 @@ script:
 
 jobs:
   include:
-    - stage: lint
-      node_js: '8'
-      script:
-        - npm run lint
-        - npm run lint-docs
-        - npm run test-typings
     - stage: test
       node_js: '6'
       env: DIALECT=sqlite
@@ -65,21 +52,6 @@ jobs:
       node_js: '6'
       sudo: required
       env: POSTGRES_VER=postgres-95 SEQ_PG_PORT=8990 DIALECT=postgres-native
-    - stage: release
-      node_js: '8'
-      script:
-        - npm run semantic-release
-      before_deploy:
-        - npm run docs
-        - npm run docs-routing
-      deploy:
-        provider: surge
-        project: ./esdoc/
-        domain: docs.sequelizejs.com
-        skip_cleanup: true
 
 stages:
-  - lint
   - test
-  - name: release
-    if: branch = master AND type = push AND fork = false
