@@ -17,7 +17,6 @@ env:
     - SEQ_USER=sequelize_test
     - SEQ_PW=sequelize_test
     - SEQ_HOST=127.0.0.1
-    - COVERAGE=true
 
 before_script:
   # setup docker
@@ -29,7 +28,7 @@ before_script:
 
 script:
   - |-
-    if [ "$COVERAGE" = true ]; then npm run cover && bash <(curl -s https://codecov.io/bash) -f coverage/lcov.info; else npm run test; fi
+    npm run test-integration
 
 jobs:
   include:
