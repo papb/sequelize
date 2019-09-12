@@ -1,7 +1,7 @@
 'use strict';
 
 const jetpack = require('fs-jetpack');
-const mssqlConfig = JSON.parse(jetpack.read('config/mssql.json'));
+const mssqlConfig = jetpack.exists('config/mssql.json') ? JSON.parse(jetpack.read('config/mssql.json')) : undefined;
 const env = process.env;
 
 module.exports = {
