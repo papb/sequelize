@@ -1,7 +1,5 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
 const _ = require('lodash');
 const Sequelize = require('sequelize');
 const Config = require('./config/config');
@@ -22,10 +20,7 @@ const Support = {
     const dialect = Support.getTestDialect();
 
     if (dialect === 'sqlite') {
-      const p = path.join(__dirname, 'tmp', 'db.sqlite');
-      if (fs.existsSync(p)) {
-        fs.unlinkSync(p);
-      }
+      jetpack.remove('tmp/db.sqlite');
       const options = Object.assign({}, sequelize.options, { storage: p }),
         _sequelize = new Sequelize(sequelize.config.database, null, null, options);
 

@@ -1,12 +1,7 @@
 'use strict';
 
-const fs = require('fs');
-let mssqlConfig;
-try {
-  mssqlConfig = JSON.parse(fs.readFileSync(`${__dirname}/mssql.json`, 'utf8'));
-} catch (e) {
-  // ignore
-}
+const jetpack = require('fs-jetpack');
+const mssqlConfig = JSON.parse(jetpack.read('mssql.json'));
 const env = process.env;
 
 module.exports = {

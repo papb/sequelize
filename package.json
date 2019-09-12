@@ -8,24 +8,14 @@
   "private": true,
   "license": "MIT",
   "dependencies": {
-    "sequelize": "^5.18.4"
-  },
-  "devDependencies": {
-    "chai": "^4.x",
-    "chai-as-promised": "^7.x",
-    "chai-datetime": "^1.x",
-    "chai-spies": "^1.x",
-    "continuation-local-storage": "^3.x",
+    "fs-jetpack": "^2.2.2",
+    "sequelize": "^5.18.4",
     "cross-env": "^5.2.0",
-    "env-cmd": "^8.0.2",
     "mariadb": "^2.0.3",
-    "mocha": "^6.1.4",
     "mysql2": "^1.6.5",
     "pg": "^7.8.1",
     "pg-hstore": "^2.x",
     "pg-types": "^2.0.0",
-    "sinon": "^7.3.2",
-    "sinon-chai": "^3.3.0",
     "sqlite3": "^4.0.6",
     "tedious": "6.0.0"
   },
