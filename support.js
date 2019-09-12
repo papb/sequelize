@@ -5,19 +5,6 @@ const path = require('path');
 const _ = require('lodash');
 const Sequelize = require('sequelize');
 const Config = require('./config/config');
-const chai = require('chai');
-const expect = chai.expect;
-const AbstractQueryGenerator = require('sequelize/lib/dialects/abstract/query-generator');
-const sinon = require('sinon');
-
-sinon.usingPromise(require('bluebird'));
-
-chai.use(require('chai-spies'));
-chai.use(require('chai-datetime'));
-chai.use(require('chai-as-promised'));
-chai.use(require('sinon-chai'));
-chai.config.includeStack = true;
-chai.should();
 
 // Make sure errors get thrown when testing
 process.on('uncaughtException', e => {
@@ -31,8 +18,6 @@ Sequelize.Promise.onPossiblyUnhandledRejection(e => {
 Sequelize.Promise.longStackTraces();
 
 const Support = {
-  Sequelize,
-
   prepareTransactionTest(sequelize) {
     const dialect = Support.getTestDialect();
 
@@ -126,21 +111,6 @@ const Support = {
     });
   },
 
-  getAbstractQueryGenerator(sequelize) {
-    class ModdedQueryGenerator extends AbstractQueryGenerator {
-      quoteIdentifier(x) {
-        return x;
-      }
-    }
-
-    const queryGenerator = new ModdedQueryGenerator({
-      sequelize,
-      _dialect: sequelize.dialect
-    });
-
-    return queryGenerator;
-  },
-
   getTestDialect() {
     let envDialect = process.env.DIALECT || 'mysql';
 
@@ -161,43 +131,8 @@ const Support = {
     return `[${dialect.toUpperCase()}] ${moduleName}`;
   },
 
-  expectsql(query, assertions) {
-    const expectations = assertions.query || assertions;
-    let expectation = expectations[Support.sequelize.dialect.name];
-
-    if (!expectation) {
-      if (expectations['default'] !== undefined) {
-        expectation = expectations['default'];
-        if (typeof expectation === 'string') {
-          expectation = expectation
-            .replace(/\[/g, Support.sequelize.dialect.TICK_CHAR_LEFT)
-            .replace(/\]/g, Support.sequelize.dialect.TICK_CHAR_RIGHT);
-        }
-      } else {
-        throw new Error(`Undefined expectation for "${Support.sequelize.dialect.name}"!`);
-      }
-    }
-
-    if (query instanceof Error) {
-      expect(query.message).to.equal(expectation.message);
-    } else {
-      expect(query.query || query).to.equal(expectation);
-    }
-
-    if (assertions.bind) {
-      const bind = assertions.bind[Support.sequelize.dialect.name] || assertions.bind['default'] || assertions.bind;
-      expect(query.bind).to.deep.equal(bind);
-    }
-  }
 };
 
-if (global.beforeEach) {
-  before(function() {
-    this.sequelize = Support.sequelize;
-  });
-  beforeEach(function() {
-    this.sequelize = Support.sequelize;
-  });
-}
 Support.sequelize = Support.createSequelizeInstance();
+
 module.exports = Support;

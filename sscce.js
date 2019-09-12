@@ -7,7 +7,7 @@ if (!process.env.DIALECT) {
 console.log('Running:', process.env.DIALECT);
 
 const Sequelize = require('sequelize');
-const sequelize = require('./test/support').createSequelizeInstance();
+const sequelize = require('./support').createSequelizeInstance();
 
 sequelize.authenticate().then(() => {
   console.log('Authenticated!');

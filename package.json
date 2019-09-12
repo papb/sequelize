@@ -3,7 +3,7 @@
   "description": "SSCCE repository for Sequelize",
   "version": "0.0.0-development",
   "engines": {
-    "node": ">=6.0.0"
+    "node": ">=10.0.0"
   },
   "private": true,
   "license": "MIT",
@@ -29,47 +29,7 @@
     "sqlite3": "^4.0.6",
     "tedious": "6.0.0"
   },
-  "options": {
-    "env_cmd": "./test/config/.docker.env"
-  },
   "scripts": {
-    "test1": "cross-env SEQ_LOG=true node sscce.js",
-    "test": "npm run teaser && npm run test-unit && npm run test-integration",
-    "test-docker": "npm run test-docker-unit && npm run test-docker-integration",
-    "test-docker-unit": "npm run test-unit",
-    "test-docker-integration": "env-cmd $npm_package_options_env_cmd npm run test-integration",
-    "teaser": "node scripts/teaser",
-    "test-unit": "mocha --require scripts/mocha-bootload --globals setImmediate,clearImmediate --exit --check-leaks --colors -t 30000 --reporter spec \"test/unit/**/*.js\"",
-    "test-unit-mariadb": "cross-env DIALECT=mariadb npm run test-unit",
-    "test-unit-mysql": "cross-env DIALECT=mysql npm run test-unit",
-    "test-unit-postgres": "cross-env DIALECT=postgres npm run test-unit",
-    "test-unit-postgres-native": "cross-env DIALECT=postgres-native npm run test-unit",
-    "test-unit-sqlite": "cross-env DIALECT=sqlite npm run test-unit",
-    "test-unit-mssql": "cross-env DIALECT=mssql npm run test-unit",
-    "test-unit-all": "npm run test-unit-mariadb && npm run test-unit-mysql && npm run test-unit-postgres && npm run test-unit-postgres-native && npm run test-unit-mssql && npm run test-unit-sqlite",
-    "test-integration": "mocha --require scripts/mocha-bootload --globals setImmediate,clearImmediate --exit --check-leaks --colors -t 30000 --reporter spec \"test/integration/**/*.test.js\"",
-    "test-integration-mariadb": "cross-env DIALECT=mariadb npm run test-integration",
-    "test-integration-mysql": "cross-env DIALECT=mysql npm run test-integration",
-    "test-integration-postgres": "cross-env DIALECT=postgres npm run test-integration",
-    "test-integration-postgres-native": "cross-env DIALECT=postgres-native npm run test-integration",
-    "test-integration-sqlite": "cross-env DIALECT=sqlite npm run test-integration",
-    "test-integration-mssql": "cross-env DIALECT=mssql npm run test-integration",
-    "test-integration-all": "npm run test-integration-mariadb && npm run test-integration-mysql && npm run test-integration-postgres && npm run test-integration-postgres-native && npm run test-integration-mssql && npm run test-integration-sqlite",
-    "test-mariadb": "cross-env DIALECT=mariadb npm test",
-    "test-mysql": "cross-env DIALECT=mysql npm test",
-    "test-sqlite": "cross-env DIALECT=sqlite npm test",
-    "test-postgres": "cross-env DIALECT=postgres npm test",
-    "test-pgsql": "npm run test-postgres",
-    "test-postgres-native": "cross-env DIALECT=postgres-native npm test",
-    "test-postgresn": "npm run test-postgres-native",
-    "test-mssql": "cross-env DIALECT=mssql npm test",
-    "test-all": "npm run test-mariadb && npm run test-mysql && npm run test-sqlite && npm run test-postgres && npm run test-postgres-native && npm run test-mssql",
-    "sscce": "env-cmd $npm_package_options_env_cmd node sscce.js",
-    "sscce-mariadb": "cross-env DIALECT=mariadb npm run sscce",
-    "sscce-mysql": "cross-env DIALECT=mysql npm run sscce",
-    "sscce-postgres": "cross-env DIALECT=postgres npm run sscce",
-    "sscce-sqlite": "cross-env DIALECT=sqlite npm run sscce",
-    "sscce-mssql": "cross-env DIALECT=mssql npm run sscce",
-    "setup-mssql": "env-cmd $npm_package_options_env_cmd ./scripts/setup-mssql"
+    "test1": "cross-env SEQ_LOG=true node sscce.js"
   }
 }

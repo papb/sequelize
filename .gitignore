@@ -3,3 +3,4 @@ test/dialects/sqlite/test.sqlite
 test/sqlite/test.sqlite
 test.sqlite
 node_modules
+___test___
