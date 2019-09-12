@@ -27,4 +27,4 @@ before_test:
   - ps: . .\scripts\appveyor-setup.ps1
 
 test_script:
-  - 'npm run test-integration'
+  - 'npm run test1'

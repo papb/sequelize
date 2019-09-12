@@ -3,11 +3,11 @@
 const fs = require('fs');
 const path = require('path');
 const _ = require('lodash');
-const Sequelize = require('../index');
+const Sequelize = require('sequelize');
 const Config = require('./config/config');
 const chai = require('chai');
 const expect = chai.expect;
-const AbstractQueryGenerator = require('../lib/dialects/abstract/query-generator');
+const AbstractQueryGenerator = require('sequelize/lib/dialects/abstract/query-generator');
 const sinon = require('sinon');
 
 sinon.usingPromise(require('bluebird'));
@@ -126,11 +126,6 @@ const Support = {
     });
   },
 
-  getSupportedDialects() {
-    return fs.readdirSync(`${__dirname}/../lib/dialects`)
-      .filter(file => !file.includes('.js') && !file.includes('abstract'));
-  },
-
   getAbstractQueryGenerator(sequelize) {
     class ModdedQueryGenerator extends AbstractQueryGenerator {
       quoteIdentifier(x) {
@@ -151,10 +146,6 @@ const Support = {
 
     if (envDialect === 'postgres-native') {
       envDialect = 'postgres';
-    }
-
-    if (!this.getSupportedDialects().includes(envDialect)) {
-      throw new Error(`The dialect you have passed is unknown. Did you really mean: ${envDialect}`);
     }
 
     return envDialect;
