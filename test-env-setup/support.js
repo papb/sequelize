@@ -128,6 +128,4 @@ const Support = {
 
 };
 
-Support.sequelize = Support.createSequelizeInstance();
-
 module.exports = Support;

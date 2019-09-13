@@ -24,7 +24,7 @@ install:
 build: off
 
 before_test:
-  - ps: . .\scripts\appveyor-setup.ps1
+  - ps: . .\test-env-setup\scripts\appveyor-setup.ps1
 
 test_script:
   - 'npm run test1'
