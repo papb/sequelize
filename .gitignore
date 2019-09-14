@@ -1,6 +1,3 @@
-npm-debug.log
-test/dialects/sqlite/test.sqlite
-test/sqlite/test.sqlite
-test.sqlite
 node_modules
-___test___
+npm-debug.log
+setup/mssql.json
