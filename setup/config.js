@@ -8,7 +8,7 @@ const DEFAULT_POOL_MAX = 5;
 const DEFAULT_POOL_IDLE_TIME = 3000;
 
 function getMSSQLConfig() {
-  const generatedMSSQLJsonConfigPath = 'test-env-setup/config/mssql.json';
+  const generatedMSSQLJsonConfigPath = 'setup/mssql.json';
   if (jetpack.exists(generatedMSSQLJsonConfigPath)) {
     return JSON.parse(jetpack.read(generatedMSSQLJsonConfigPath));
   }

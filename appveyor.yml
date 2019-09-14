@@ -24,7 +24,7 @@ install:
 build: off
 
 before_test:
-  - ps: . .\test-env-setup\scripts\appveyor-setup.ps1
+  - ps: . .\setup\appveyor-setup.ps1
 
 test_script:
   - 'npm run sscce'

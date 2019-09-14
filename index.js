@@ -8,6 +8,6 @@ console.log(`Running SSCCE for dialect '${process.env.DIALECT}'`);
 
 const runSscce = require('./src/sscce');
 
-const Support = require('./test-env-setup/support');
+const Support = require('./setup/support');
 
 runSscce(Support);

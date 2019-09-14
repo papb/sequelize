@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const Sequelize = require('sequelize');
-const Config = require('./config/config');
+const Config = require('./config');
 
 // Make sure errors get thrown when testing
 process.on('uncaughtException', e => {
