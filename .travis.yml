@@ -7,7 +7,7 @@ cache: npm
 
 install:
   - npm install -g npm@latest
-  - npm install
+  - npm install --production
   - |-
     if [ "$DIALECT" = "postgres-native" ]; then npm install pg-native; fi
 
@@ -28,7 +28,7 @@ before_script:
 
 script:
   - |-
-    npm run sscce
+    npm run ci
 
 jobs:
   include:

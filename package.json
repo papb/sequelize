@@ -20,6 +20,11 @@
     "tedious": "6.0.0"
   },
   "scripts": {
-    "sscce": "cross-env SEQ_LOG=true node index.js"
+    "start": "cross-env LOCAL_SSCCE=true DIALECT=sqlite node setup/runner.js",
+    "ci": "node setup/runner.js"
+  },
+  "devDependencies": {
+    "eslint": "^6.4.0",
+    "eslint-plugin-node": "^10.0.0"
   }
 }

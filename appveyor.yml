@@ -19,7 +19,7 @@ install:
       $pkg.dependencies.PSObject.Properties.Remove('sqlite3')
       $pkg.dependencies.PSObject.Properties.Remove('pg-native')
       ConvertTo-Json $pkg | Out-File package.json -Encoding UTF8
-  - npm install
+  - npm install --production
 
 build: off
 
@@ -27,4 +27,4 @@ before_test:
   - ps: . .\setup\appveyor-setup.ps1
 
 test_script:
-  - 'npm run sscce'
+  - 'npm run ci'
