@@ -1,6 +1,7 @@
 'use strict';
 
 const Sequelize = require('sequelize');
+const chalk = require('chalk');
 
 process.on('uncaughtException', e => {
   console.error('An unhandled exception occurred:');
@@ -16,3 +17,24 @@ Sequelize.Promise.onPossiblyUnhandledRejection(e => {
 });
 
 Sequelize.Promise.longStackTraces();
+
+const colors = [
+  'red',
+  'green',
+  'blue',
+  'yellow',
+  'gray',
+  'darkRed',
+  'darkYellow',
+  'purple',
+  'pink',
+  'orange',
+  'cyan'
+];
+
+for (const color of colors) {
+  console[color] = (...args) => console.log.apply(console, args.map(arg => {
+    if (typeof arg !== "string") return arg;
+    return chalk.keyword(color)(arg);
+  }));
+}
