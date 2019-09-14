@@ -9,6 +9,10 @@ process.on('uncaughtException', e => {
   console.error('An unhandled exception occurred:');
   throw e;
 });
+process.on("unhandledRejection", function(reason) {
+  console.error('An unhandled rejection occurred:');
+  throw e;
+});
 Sequelize.Promise.onPossiblyUnhandledRejection(e => {
   console.error('An unhandled rejection occurred:');
   throw e;
@@ -31,7 +35,7 @@ const Support = {
 
   createSequelizeInstance(options) {
     options = options || {};
-    options.dialect = this.getTestDialect();
+    options.dialect = Support.getTestDialect();
 
     const config = Config[options.dialect];
 
@@ -52,11 +56,11 @@ const Support = {
       sequelizeOptions.storage = config.storage;
     }
 
-    return this.getSequelizeInstance(config.database, config.username, config.password, sequelizeOptions);
+    return Support.getSequelizeInstance(config.database, config.username, config.password, sequelizeOptions);
   },
 
   getConnectionOptions() {
-    const config = Config[this.getTestDialect()];
+    const config = Config[Support.getTestDialect()];
 
     delete config.pool;
 
@@ -65,7 +69,7 @@ const Support = {
 
   getSequelizeInstance(db, user, pass, options) {
     options = options || {};
-    options.dialect = options.dialect || this.getTestDialect();
+    options.dialect = options.dialect || Support.getTestDialect();
     return new Sequelize(db, user, pass, options);
   },
 
@@ -82,7 +86,7 @@ const Support = {
           .dropAllEnums();
       })
       .then(() => {
-        return this.dropTestSchemas(sequelize);
+        return Support.dropTestSchemas(sequelize);
       });
   },
 
@@ -90,7 +94,7 @@ const Support = {
 
     const queryInterface = sequelize.getQueryInterface();
     if (!queryInterface.QueryGenerator._dialect.supports.schemas) {
-      return this.sequelize.drop({});
+      return Support.sequelize.drop({});
     }
 
     return sequelize.showAllSchemas().then(schemas => {
@@ -117,7 +121,7 @@ const Support = {
   },
 
   getTestDialectTeaser(moduleName) {
-    let dialect = this.getTestDialect();
+    let dialect = Support.getTestDialect();
 
     if (process.env.DIALECT === 'postgres-native') {
       dialect = 'postgres-native';
