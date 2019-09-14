@@ -1,13 +1,18 @@
 'use strict';
 
-/***********************************/
-/********* Sequelize SSCCE *********/
-/***********************************/
+/**
+ * The Sequelize SSCCE runner.
+ * 
+ * Please do everything inside it, including requiring dependencies.
+ */
+module.exports = async function(createSequelizeInstance) {
 
-const { Sequelize, Op, Model, DataTypes } = require('sequelize');
+    // const { Sequelize, Op, Model, DataTypes } = require('sequelize');
 
-module.exports = async function({ createSequelizeInstance }) {
     const sequelize = createSequelizeInstance();
+
     await sequelize.authenticate();
+
     console.log('Hello World!');
+
 };

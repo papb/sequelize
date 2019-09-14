@@ -70,7 +70,9 @@ module.exports = {
     }
   },
 
-  sqlite: {},
+  sqlite: {
+    storage: ':memory:'
+  },
 
   postgres: {
     database: env.SEQ_PG_DB || env.SEQ_DB || 'sequelize_test',
