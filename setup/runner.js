@@ -20,7 +20,7 @@ async function run() {
 
 (async () => {
     try {
-        run();
+        await run();
         console.log('\n\n' + '-'.repeat(30) + '\n\n');
         console.green('SSCCE done without errors!');
     } catch (e) {

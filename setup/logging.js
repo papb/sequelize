@@ -4,7 +4,7 @@ const _ = require('lodash');
 const chalk = require('chalk');
 
 function isOptionsObject(arg) {
-    return arg && _.isPlainObject(arg) && Object.prototype.hasOwnProperty.call(arg, 'logging')
+    return arg && _.isPlainObject(arg) && Object.prototype.hasOwnProperty.call(arg, '__isOptionsObject__');
 }
 
 module.exports = function(...args) {
@@ -19,7 +19,7 @@ module.exports = function(...args) {
         if (index === args.length - 1 && options.benchmark) {
             return chalk.blue(`[Elapsed time: ${arg} ms]`);
         }
-        return typeof arg === 'string' ? chalk.gray(arg) : arg;
+        return chalk.gray(arg);
     });
 
     console.log('[Sequelize]', ...args);

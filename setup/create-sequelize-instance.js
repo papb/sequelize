@@ -25,5 +25,7 @@ module.exports = function createSequelizeInstance(options) {
     dialectOptions: config.dialectOptions || {}
   });
 
+  options.__isOptionsObject__ = true;
+
   return new Sequelize(config.database, config.username, config.password, options);
 };
