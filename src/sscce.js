@@ -7,7 +7,7 @@
  */
 module.exports = async function(createSequelizeInstance) {
 
-    // const { Sequelize, Op, Model, DataTypes } = require('sequelize');
+    const { Sequelize, Op, Model, DataTypes } = require('sequelize');
 
     const sequelize = createSequelizeInstance({ benchmark: true });
 
