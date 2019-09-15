@@ -9,7 +9,9 @@ module.exports = async function(createSequelizeInstance) {
 
     // const { Sequelize, Op, Model, DataTypes } = require('sequelize');
 
-    const sequelize = createSequelizeInstance();
+    const sequelize = createSequelizeInstance({
+        benchmark: true
+    });
 
     await sequelize.authenticate();
 
