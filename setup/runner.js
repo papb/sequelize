@@ -8,7 +8,7 @@ async function run() {
     console.log('\n\n' + '-'.repeat(30) + '\n\n');
 
     if (process.env.LOCAL_SSCCE) {
-        console.goldenRod('Warning: running the SSCCE locally will use SQLite only. To run your SSCCE in all dialects, just configure Travis and Appveyor in your GitHub repository.\n\n');
+        console.gold('Warning: running the SSCCE locally will use SQLite only. To run your SSCCE in all dialects, just configure Travis and Appveyor in your GitHub repository.\n\n');
     }
 
     console.blue(`===== Running SSCCE for ${process.env.DIALECT.toUpperCase()} =====`);

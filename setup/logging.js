@@ -4,7 +4,9 @@ const _ = require('lodash');
 const chalk = require('chalk');
 
 function isOptionsObject(arg) {
-    return arg && _.isPlainObject(arg) && Object.prototype.hasOwnProperty.call(arg, '__isOptionsObject__');
+    console.log('Checking if isOptionsObject:', arg);
+    const result = arg && _.isPlainObject(arg) && Object.prototype.hasOwnProperty.call(arg, '__isOptionsObject__');
+    return result;
 }
 
 module.exports = function(...args) {
@@ -17,9 +19,9 @@ module.exports = function(...args) {
     args = args.map((arg, index) => {
         // If benchmarking option is enabled, the last argument is the elapsed time
         if (index === args.length - 1 && options.benchmark) {
-            return chalk.blue(`[Elapsed time: ${arg} ms]`);
+            return `[Elapsed time: ${arg} ms]`;
         }
-        return chalk.gray(arg);
+        return arg;
     });
 
     console.log('[Sequelize]', ...args);

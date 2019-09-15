@@ -29,7 +29,8 @@ const colors = [
   'purple',
   'pink',
   'orange',
-  'cyan'
+  'cyan',
+  'gold'
 ];
 
 for (const color of colors) {
